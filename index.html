@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sourdough Bread | Restaurant Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <style>
+      model-viewer {
+        width: 100%;
+        height: 60vh;
+        display: block;
+        --poster-color: transparent;
+        background: #f8f8f8;
+        border-radius: 0 0 2rem 2rem;
+      }
+      * {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.6s ease forwards;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .loading {
+        position: fixed;
+        inset: 0;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+      .loader {
+        width: 30px;
+        height: 30px;
+        border: 3px solid #eee;
+        border-top: 3px solid #000;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script
+      type="module"
+      src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"
+    ></script>
+  </head>
+  <body class="bg-white min-h-screen">
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Back button -->
+    <div class="fixed top-4 left-4 z-10">
+      <button
+        class="p-2 bg-white/90 backdrop-blur hover:bg-gray-100 transition-all rounded-full shadow-lg group"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 group-hover:-translate-x-1 transition-transform"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Like Button -->
+    <div class="fixed top-4 right-4 z-10">
+      <button
+        id="likeBtn"
+        class="p-2 bg-white/90 backdrop-blur hover:bg-gray-100 transition-all rounded-full shadow-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- 3D Model Viewer -->
+    <model-viewer
+      src="./model.glb"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      camera-controls
+      auto-rotate
+      rotation-per-second="30deg"
+      shadow-intensity="1"
+      class="shadow-lg"
+    >
+      <button
+        slot="ar-button"
+        class="absolute bottom-4 right-4 bg-black text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-2 hover:bg-gray-800 transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+          />
+        </svg>
+        View in AR
+      </button>
+    </model-viewer>
+
+    <!-- Item Details -->
+    <div class="px-6 pt-6 pb-24 space-y-8">
+      <div
+        class="flex justify-between items-start fade-in"
+        style="animation-delay: 0.2s"
+      >
+        <div>
+          <h1 class="text-3xl font-bold">Sliced Sourdough Bread</h1>
+          <p class="text-gray-500 mt-2">Artisanal Bread</p>
+        </div>
+        <span class="text-3xl font-bold">$8.99</span>
+      </div>
+
+      <div class="fade-in" style="animation-delay: 0.4s">
+        <h2 class="text-xl font-semibold mb-3">Description</h2>
+        <p class="text-gray-600 leading-relaxed">
+          Hand-crafted sourdough bread, naturally leavened for 24 hours. Served
+          with cultured butter and sea salt. Made fresh daily in our bakery.
+        </p>
+      </div>
+
+      <div class="fade-in" style="animation-delay: 0.6s">
+        <h2 class="text-xl font-semibold mb-3">Ingredients</h2>
+        <div class="flex gap-2 flex-wrap">
+          <span class="px-3 py-1 bg-gray-100 rounded-full text-sm"
+            >Organic wheat flour</span
+          >
+          <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Water</span>
+          <span class="px-3 py-1 bg-gray-100 rounded-full text-sm"
+            >Sea salt</span
+          >
+          <span class="px-3 py-1 bg-gray-100 rounded-full text-sm"
+            >Natural sourdough starter</span
+          >
+        </div>
+      </div>
+
+      <div class="fade-in" style="animation-delay: 0.8s">
+        <div class="flex items-center gap-4">
+          <div class="border rounded-full flex items-center bg-gray-50">
+            <button
+              id="decrementBtn"
+              class="px-4 py-2 text-xl hover:bg-gray-100 rounded-l-full transition-colors"
+            >
+              -
+            </button>
+            <span id="quantity" class="px-4 py-2 font-medium">1</span>
+            <button
+              id="incrementBtn"
+              class="px-4 py-2 text-xl hover:bg-gray-100 rounded-r-full transition-colors"
+            >
+              +
+            </button>
+          </div>
+          <button
+            id="addToCartBtn"
+            class="bg-black hover:bg-gray-800 transition-colors text-white px-8 py-3 rounded-full flex-grow font-medium"
+          >
+            Add to Order • $8.99
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Added to Cart Notification -->
+    <div
+      id="notification"
+      class="fixed top-4 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-3 rounded-full opacity-0 transition-opacity duration-300 z-50"
+    >
+      Added to cart!
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div
+      class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur border-t px-6 py-4 flex justify-between items-center"
+    >
+      <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          />
+        </svg>
+      </button>
+      <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </button>
+      <button
+        class="p-2 hover:bg-gray-100 rounded-full transition-colors relative"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+          />
+        </svg>
+        <span
+          id="cartCount"
+          class="absolute -top-1 -right-1 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center"
+          >0</span
+        >
+      </button>
+    </div>
+
+    <script>
+      // Loading screen
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("loading").style.opacity = "0";
+          setTimeout(() => {
+            document.getElementById("loading").style.display = "none";
+          }, 300);
+        }, 800);
+      });
+
+      // Like button functionality
+      const likeBtn = document.getElementById("likeBtn");
+      likeBtn.addEventListener("click", () => {
+        likeBtn.querySelector("svg").classList.toggle("fill-red-500");
+        likeBtn.querySelector("svg").classList.toggle("stroke-red-500");
+
+        // Add heart animation
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.top = "50%";
+        heart.style.left = "50%";
+        heart.style.transform = "translate(-50%, -50%)";
+        heart.style.fontSize = "50px";
+        heart.style.pointerEvents = "none";
+        heart.style.animation = "float 1s ease-out forwards";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 1000);
+      });
+
+      // Quantity controls
+      let quantity = 1;
+      const quantityDisplay = document.getElementById("quantity");
+      const decrementBtn = document.getElementById("decrementBtn");
+      const incrementBtn = document.getElementById("incrementBtn");
+      const addToCartBtn = document.getElementById("addToCartBtn");
+      const cartCount = document.getElementById("cartCount");
+      const notification = document.getElementById("notification");
+
+      decrementBtn.addEventListener("click", () => {
+        if (quantity > 1) {
+          quantity--;
+          quantityDisplay.textContent = quantity;
+          updatePrice();
+        }
+      });
+
+      incrementBtn.addEventListener("click", () => {
+        quantity++;
+        quantityDisplay.textContent = quantity;
+        updatePrice();
+      });
+
+      function updatePrice() {
+        const basePrice = 8.99;
+        const total = (basePrice * quantity).toFixed(2);
+        addToCartBtn.textContent = `Add to Order • $${total}`;
+      }
+
+      // Add to cart functionality
+      let cartItems = 0;
+      addToCartBtn.addEventListener("click", () => {
+        cartItems += quantity;
+        cartCount.textContent = cartItems;
+
+        // Show notification
+        notification.style.opacity = "1";
+        setTimeout(() => {
+          notification.style.opacity = "0";
+        }, 2000);
+
+        // Add button press animation
+        addToCartBtn.style.transform = "scale(0.95)";
+        setTimeout(() => {
+          addToCartBtn.style.transform = "scale(1)";
+        }, 150);
+      });
+
+      // Add smooth scroll behavior
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
